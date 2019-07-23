@@ -26,16 +26,14 @@ public class EchoWithCodecServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline()
-                            .addLast(new UppercaseCodec());
-                    }
-                });
+                .childHandler(new EchoWithCodecServerInitializer());
 
             ChannelFuture channelFuture = serverBootstrap.bind(PORT).sync();
             channelFuture.channel().closeFuture().sync();
+
+//            00:37:40.983 INFO [nioEventLoopGroup-3-1] [Decoder] decode is called. read : A > decoded : a
+//            00:37:40.983 INFO [nioEventLoopGroup-3-1] [Handler] channelRead0 is called.. msg : a
+//            00:37:40.983 INFO [nioEventLoopGroup-3-1] [Encoder] encode is called.. msg : a >> encoded : A
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
