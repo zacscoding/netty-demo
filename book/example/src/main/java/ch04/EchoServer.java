@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * @GitHub : https://github.com/zacscoding
+ *
  */
 public class EchoServer {
 
@@ -29,10 +29,15 @@ public class EchoServer {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline p = ch.pipeline();
-                        // ChannelInboundHandlerAdapter 메소드 호출 순서 체크
                         // p.addLast(new EchoServerHandler());
+
                         // p.addLast(new EchoServerHandlerV1());
-                        p.addLast(new EchoServerHandlerV2());
+
+                        // p.addLast(new EchoServerHandlerV2());
+
+                        p.addLast(new EchoServerFirstHandlerV3());
+                        p.addLast(new EchoServerSecondHandlerV3());
+                        p.addLast(new EchoServerThirdHandlerV3());
                     }
                 });
 
