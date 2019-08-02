@@ -7,15 +7,15 @@ import java.nio.charset.Charset;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Uppercase codec
+ * @GitHub : https://github.com/zacscoding
  */
-@Slf4j(topic = "UppercaseCodec")
-public class UppercaseCodec extends MessageToByteEncoder<String> {
+@Slf4j(topic = "Encoder")
+public class UppercaseEncoder extends MessageToByteEncoder<String> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, String msg, ByteBuf out) throws Exception {
-        String encoded = msg == null ? "" : msg.toUpperCase();
-        logger.info("encode is called... msg : {} >> encode {}", msg, encoded);
+        String encoded = msg == null ? "NULL" : msg.toUpperCase();
+        logger.info("encode is called.. msg : {} >> encoded : {}", msg, encoded);
         out.writeCharSequence(encoded, Charset.defaultCharset());
     }
 }
